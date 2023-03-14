@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidebar from './Sidebar'
+import Topmenu from './Topmenu'
 
 const Dashboard = () => {
     return (
@@ -10,15 +11,7 @@ const Dashboard = () => {
                 </div>
                 <div className="flex-1">
                     <div className='flex'>
-                        <ul className='flex'>
-                            <li className='m-4 p-2 hover:bg-gray-200 bg-black border rounded-lg text-white'>All</li>
-                            <li className='m-4 p-2 hover:bg-gray-200 bg-gray-50 border rounded-lg'>Music</li>
-                            <li className='m-4 p-2 hover:bg-gray-200 bg-gray-50 border rounded-lg'>Arijit Singh</li>
-                            <li className='m-4 p-2 hover:bg-gray-200 bg-gray-50 border rounded-lg'>Bollywood Music</li>
-                            <li className='m-4 p-2 hover:bg-gray-200 bg-gray-50 border rounded-lg'>Comedy</li>
-                            <li className='m-4 p-2 hover:bg-gray-200 bg-gray-50 border rounded-lg'>Cartoons</li>
-                            <li className='m-4 p-2 hover:bg-gray-200 bg-gray-50 border rounded-lg'>Kids</li>
-                        </ul>
+                        <Topmenu />
                     </div>
                     <p className='bg-green-400'>
                     What is Lorem Ipsum?
