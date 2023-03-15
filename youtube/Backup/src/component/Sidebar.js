@@ -2,7 +2,7 @@ import React from 'react'
 
 const Sidebar = () => {
     return (
-        <div>
+        <div className='w-24'>
             <ul>
                 <li className='p-2 m-3 cursor-pointer hover:bg-gray-100 bg-gray-200  rounded-lg w-40'>
                     <i className="fa fa-home" aria-hidden="true"></i> <span className='ml-2'>Home</span>
