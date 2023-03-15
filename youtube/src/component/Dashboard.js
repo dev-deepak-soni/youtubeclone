@@ -15,20 +15,23 @@ const Dashboard = () => {
     const [nextPageToken, setNextPageToken] = useState()
     const [prevPageToken, setPrevPageToken] = useState()
     const [totalResults, setTotalResults] = useState(1000)
+    const [remainingResult, setRemainingResult] = useState(1000)
     const [resultsPerPage, setResultsPerPage] = useState()
 
     const arr = [1, 2, 3, 4, 5];
     useEffect(() => {
 
-        console.log('env credential', process.env.REACT_APP_GOOGLE_API_SECRET_KEY);
-        // getYoutubeVideo();
+        getYoutubeVideo();
         setProgress(15);
-        setVideos(data.items);
 
-        setNextPageToken(data?.nextPageToken);
-        setPrevPageToken(data?.prevPageToken);
-        setTotalResults(data?.pageInfo?.totalResults);
-        setResultsPerPage(data?.pageInfo?.resultsPerPage);
+        // setVideos(data.items);
+        // setNextPageToken(data?.nextPageToken);
+        // setPrevPageToken(data?.prevPageToken);
+        // setResultsPerPage(data?.pageInfo?.resultsPerPage);
+        // setTotalResults(data?.pageInfo?.totalResults);
+        // setRemainingResult(data?.pageInfo?.totalResults - data?.pageInfo?.resultsPerPage);
+        
+
     }, [])
 
     const getYoutubeVideo = async () => {
@@ -43,12 +46,14 @@ const Dashboard = () => {
         setPrevPageToken(result?.prevPageToken);
         setTotalResults(result?.pageInfo?.totalResults);
         setResultsPerPage(result?.pageInfo?.resultsPerPage);
+        setRemainingResult(result?.pageInfo?.totalResults - result?.pageInfo?.resultsPerPage);
 
 
 
         console.log('nextPageToken', nextPageToken, 'prevPageToken', prevPageToken, 'totalResults', totalResults, 'resultsPerPage', resultsPerPage);
         console.log('result', result);
         console.log('videos', videos);
+        console.log('videos len', videos.length);
     }
 
     const fetchData = async () => {
@@ -59,6 +64,13 @@ const Dashboard = () => {
         setProgress(100);
         console.log('result', result);
         setVideos(videos.concat(result.items));
+        
+        
+        setNextPageToken(result?.nextPageToken);
+        setPrevPageToken(result?.prevPageToken);
+        setTotalResults(result?.pageInfo?.totalResults);
+        setResultsPerPage(result?.pageInfo?.resultsPerPage);
+        setRemainingResult(result?.pageInfo?.totalResults - result?.pageInfo?.resultsPerPage);
     }
 
     return (!videos) ? <Shimmer /> : (
@@ -77,11 +89,14 @@ const Dashboard = () => {
                     <div className='flex fixed w-full'>
                         <Topmenu />
                     </div>
-                    <div id='testDeepak' className='mt-16 h-[500px] overflow-y-auto p-2 flex flex-wrap'>
+                    <div id="scrollableDiv" className='mt-16 h-[600px] overflow-y-auto p-2 flex flex-wrap'>
 
                         <InfiniteScroll
-                            dataLength={totalResults} //This is important field to render the next data
-                            // next={fetchData}
+                        className='flex flex-wrap'
+                            dataLength={videos.length} //This is important field to render the next data
+                            next={fetchData}
+                            pullDownToRefreshThreshold={50}
+                            scrollableTarget="scrollableDiv"
                             hasMore={true}
                             loader={<h4>Loading...</h4>}
 
