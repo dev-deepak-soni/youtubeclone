@@ -17,19 +17,18 @@ const Dashboard = () => {
     const [totalResults, setTotalResults] = useState(1000)
     const [remainingResult, setRemainingResult] = useState(1000)
     const [resultsPerPage, setResultsPerPage] = useState()
-
-    const arr = [1, 2, 3, 4, 5];
+    
     useEffect(() => {
 
-        getYoutubeVideo();
+        // getYoutubeVideo();
         setProgress(15);
 
-        // setVideos(data.items);
-        // setNextPageToken(data?.nextPageToken);
-        // setPrevPageToken(data?.prevPageToken);
-        // setResultsPerPage(data?.pageInfo?.resultsPerPage);
-        // setTotalResults(data?.pageInfo?.totalResults);
-        // setRemainingResult(data?.pageInfo?.totalResults - data?.pageInfo?.resultsPerPage);
+        setVideos(data.items);
+        setNextPageToken(data?.nextPageToken);
+        setPrevPageToken(data?.prevPageToken);
+        setResultsPerPage(data?.pageInfo?.resultsPerPage);
+        setTotalResults(data?.pageInfo?.totalResults);
+        setRemainingResult(data?.pageInfo?.totalResults - data?.pageInfo?.resultsPerPage);
         
 
     }, [])
@@ -59,18 +58,27 @@ const Dashboard = () => {
     const fetchData = async () => {
         setProgress(15);
         console.log('fetchData worked');
-        const apicall = await fetch(youTubeVideoUrl);
-        const result = await apicall.json();
+        // const apicall = await fetch(youTubeVideoUrl);
+        // const result = await apicall.json();
+        // setProgress(100);
+        // console.log('result', result);
+        // setVideos(videos.concat(result.items));
+        
+        
+        // setNextPageToken(result?.nextPageToken);
+        // setPrevPageToken(result?.prevPageToken);
+        // setTotalResults(result?.pageInfo?.totalResults);
+        // setResultsPerPage(result?.pageInfo?.resultsPerPage);
+        // setRemainingResult(result?.pageInfo?.totalResults - result?.pageInfo?.resultsPerPage);
+
+
+        setVideos(videos.concat(data.items));
         setProgress(100);
-        console.log('result', result);
-        setVideos(videos.concat(result.items));
-        
-        
-        setNextPageToken(result?.nextPageToken);
-        setPrevPageToken(result?.prevPageToken);
-        setTotalResults(result?.pageInfo?.totalResults);
-        setResultsPerPage(result?.pageInfo?.resultsPerPage);
-        setRemainingResult(result?.pageInfo?.totalResults - result?.pageInfo?.resultsPerPage);
+        setNextPageToken(data?.nextPageToken);
+        setPrevPageToken(data?.prevPageToken);
+        setResultsPerPage(data?.pageInfo?.resultsPerPage);
+        setTotalResults(data?.pageInfo?.totalResults);
+        setRemainingResult(data?.pageInfo?.totalResults - data?.pageInfo?.resultsPerPage);
     }
 
     return (!videos) ? <Shimmer /> : (
