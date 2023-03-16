@@ -11,7 +11,7 @@ Responsive design
 To get started with the project, please follow these steps:
 1 Clone the repository to your local machine using the command below:
 
-# git clone https://github.com/your-username/youtube-clone.git
+# git clone https://github.com/dev-deepak-soni/youtube-clone.git
 2 Install the dependencies using the following command:
 # npm install
 3 Create a new file .env.local and add your YouTube API key to it using the following format:
