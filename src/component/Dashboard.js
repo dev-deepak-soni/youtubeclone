@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import  youTubeVideoUrl  from '../config/Constant'
+import youTubeVideoUrl from '../config/Constant'
 import Shimmer from './Shimmer'
 import Sidebar from './Sidebar'
 import Topmenu from './Topmenu'
@@ -7,6 +7,7 @@ import Videocard from './Videocard'
 import LoadingBar from 'react-top-loading-bar'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import data from '../data/DummyData.json'
+import Spinner, { Finished } from './Spinner'
 
 const Dashboard = () => {
 
@@ -64,8 +65,8 @@ const Dashboard = () => {
         // setProgress(100);
         // console.log('result', result);
         // setVideos(videos.concat(result.items));
-        
-        
+
+
         // setNextPageToken(result?.nextPageToken);
         // setPrevPageToken(result?.prevPageToken);
         // setTotalResults(result?.pageInfo?.totalResults);
@@ -73,13 +74,19 @@ const Dashboard = () => {
         // setRemainingResult(result?.pageInfo?.totalResults - result?.pageInfo?.resultsPerPage);
 
 
-        setVideos(videos.concat(data.items));
-        setNextPageToken(data?.nextPageToken);
-        setPrevPageToken(data?.prevPageToken);
-        setResultsPerPage(data?.pageInfo?.resultsPerPage);
-        setTotalResults(data?.pageInfo?.totalResults);
-        setRemainingResult(data?.pageInfo?.totalResults - data?.pageInfo?.resultsPerPage);
-        setProgress(100);
+        const timeOut = setTimeout(() => {
+            setVideos(videos.concat(data.items));
+            setNextPageToken(data?.nextPageToken);
+            setPrevPageToken(data?.prevPageToken);
+            setResultsPerPage(data?.pageInfo?.resultsPerPage);
+            setTotalResults(data?.pageInfo?.totalResults);
+            setRemainingResult(data?.pageInfo?.totalResults - data?.pageInfo?.resultsPerPage);
+            setProgress(100);
+        }, 2000);
+
+        () => {
+            return clearTimeout(timeOut);
+        }
     }
 
     return (!videos) ? <Shimmer /> : (
@@ -95,19 +102,20 @@ const Dashboard = () => {
                     <Sidebar />
                 </div>
                 <div className="flex-1">
-                    <div className='flex fixed w-full'>
+                    <div className='flex fixed w-full -z-[28]'>
                         <Topmenu />
                     </div>
                     <div id="scrollableDiv" className='mt-16 h-[600px] flex-1 overflow-y-auto p-2 flex flex-wrap'>
 
                         <InfiniteScroll
-                        className='flex flex-wrap'
+                            className='flex flex-wrap'
                             dataLength={videos.length} //This is important field to render the next data
                             next={fetchData}
                             pullDownToRefreshThreshold={50}
                             scrollableTarget="scrollableDiv"
                             hasMore={(videos.length <= totalResults) ? true : false}
-                            loader={<h4>Loading...</h4>}
+                            loader={<Spinner/>}
+                            onLoaderFinished= {<Finished/>}
                         >
 
                             {videos && videos?.map((items, i) => <Videocard key={`test_${i}`} data={items} />)}
