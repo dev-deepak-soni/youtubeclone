@@ -1,12 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
     return (
         <div>
             <ul>
-                <li className='p-2 m-3 cursor-pointer hover:bg-gray-100 bg-gray-200  rounded-lg w-40'>
+                <Link to='/'><li className='p-2 m-3 cursor-pointer hover:bg-gray-100 bg-gray-200  rounded-lg w-40'>
                     <i className="fa fa-home" aria-hidden="true"></i> <span className='ml-2'>Home</span>
                 </li>
+                </Link>
                 <li className='p-2 m-3 cursor-pointer hover:bg-gray-100 rounded-lg w-40'>
                     <i className="fa fa-car" aria-hidden="true"></i> <span className='ml-2'>Shorts</span>
                 </li>
