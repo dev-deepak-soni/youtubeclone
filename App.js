@@ -1,5 +1,5 @@
 import React from "react";
-import  ReactDOM  from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Body from "./src/component/Body";
@@ -12,34 +12,34 @@ import Watch from "./src/component/Watch";
 const App = () => {
     return (
         <>
-        <Header/>
-        <Dashboard/>
+            <Header />
+            <Dashboard />
         </>
     )
 }
 
 const router = createBrowserRouter([
-    {
-        path : '/',
-        element : <App/>,
-        errorElement : <Error/>,
-        children : [
-            {
-                path : '/',
-                element : <Body />
-            },
-            {
-                path : 'watch',
-                element : <Watch />
-            },
-            {
-                path : 'test',
-                element : <Test />
-            }       
+        {
+            path: '/',
+            element: <App />,
+            errorElement: <Error />,
+            children: [
+                {
+                    path: '/',
+                    element: <Body />
+                },
+                {
+                    path: 'watch',
+                    element: <Watch />
+                },
+                {
+                    path: 'test',
+                    element: <Test />
+                }
 
-        ]
-    }
-])
+            ]
+        }
+    ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
