@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from '../img/youtube.png'
 import menuIcon from '../img/sidebar.png'
 import searchIcon from '../img/search.png'
@@ -7,8 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Store from '../redux/Store'
 import { sotreCache } from '../redux/SearchSlice';
 import { Link } from 'react-router-dom'
+import Sidebarslice from '../redux/Sidebarslice'
+import {toogleSidebar} from '../redux/Sidebarslice'
 
 const Header = () => {
+  
   const [searchString, setSearchString] = useState('');
   const [searchedData, setSearchedData] = useState([]);
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
@@ -16,7 +19,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const cache = useSelector((Store) => Store.Search);
-
+  const Sidebardata = useSelector((Store) => Store.Sidebarslice);
   useEffect(() => {
     searchSuggestions();
   }, [searchString])
@@ -60,18 +63,26 @@ const Header = () => {
   }
   const handleChange = (e) => {
     try {
-      setSearchString(e.target.value);
+      const timeout = setTimeout(() => {
+        setSearchString(e.target.value);
+      }, 800);
       setClickedValue(e.target.value);
     } catch (error) {
       console.log('error---', error.message);
     }
+    return () => {
+      clearTimeout(timeout);
+    }
   }
 
+  const sidebarOnOff = () => {
+    dispatch(toogleSidebar(!Sidebardata.isSidebarOn))
+  }
 
   return (
     <div className="w-full top-0 fixed bg-white h-16">
       <div className="flex">
-        <div className='cursor-pointer'><img src={menuIcon} className='h-6 w-7 mt-4 ml-4 hover:bg-gray-300 rounded-lg' /></div>
+        <div className='cursor-pointer' onClick={sidebarOnOff}><img src={menuIcon} className='h-6 w-7 mt-4 ml-4 hover:bg-gray-300 rounded-lg' /></div>
         <Link to='/'><div className='cursor-pointer'><img src={logo} className='h-8 w-28 mt-3 ml-7' /></div></Link>
         <div className='mt-2 '>
           <input type='text'

@@ -1,8 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Sidebarslice from '../redux/Sidebarslice'
+import Store from '../redux/Store'
+
 
 const Sidebar = () => {
-    return (
+    const Sidebardata = useSelector((Store)=> Store.Sidebarslice);
+    return (!Sidebardata.isSidebarOn) ? '' : (
         <div>
             <ul>
                 <Link to='/'><li className='p-2 m-3 cursor-pointer hover:bg-gray-100 bg-gray-200  rounded-lg w-40'>
